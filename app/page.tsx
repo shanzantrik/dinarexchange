@@ -110,14 +110,14 @@ export default function Home() {
   const [activeTab, setActiveTab] = useState('buy');
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50 to-emerald-50">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-primary-50 to-orange-50">
       {/* Hero Section */}
       <section className="relative py-20 px-6 overflow-hidden">
         {/* Background Elements */}
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-600 via-emerald-500 to-teal-600 opacity-10"></div>
-        <div className="absolute top-0 left-0 w-72 h-72 bg-blue-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob"></div>
-        <div className="absolute top-0 right-0 w-72 h-72 bg-emerald-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-2000"></div>
-        <div className="absolute -bottom-8 left-20 w-72 h-72 bg-teal-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-4000"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-primary-600 via-primary-500 to-orange-500 opacity-10"></div>
+        <div className="absolute top-0 left-0 w-72 h-72 bg-primary-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob"></div>
+        <div className="absolute top-0 right-0 w-72 h-72 bg-orange-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-2000"></div>
+        <div className="absolute -bottom-8 left-20 w-72 h-72 bg-primary-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-4000"></div>
 
         <div className="relative container mx-auto text-center">
           <motion.div
@@ -126,7 +126,7 @@ export default function Home() {
             transition={{ duration: 0.8 }}
           >
             <h1 className="text-5xl md:text-7xl font-bold mb-6">
-              <span className="bg-gradient-to-r from-blue-600 via-emerald-500 to-teal-600 text-transparent bg-clip-text">
+              <span className="gradient-header">
                 Welcome to Dinar Exchange Australia
               </span>
             </h1>
@@ -144,7 +144,7 @@ export default function Home() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <motion.a
                 href="/buy-dinar"
-                className="bg-gradient-to-r from-blue-600 to-emerald-600 text-white font-bold py-4 px-8 rounded-xl hover:from-blue-700 hover:to-emerald-700 transition-all duration-300 shadow-lg hover:shadow-xl"
+                className="btn-gradient font-bold py-4 px-8 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -152,7 +152,7 @@ export default function Home() {
               </motion.a>
               <motion.a
                 href="/buy-zim"
-                className="bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-bold py-4 px-8 rounded-xl hover:from-emerald-700 hover:to-teal-700 transition-all duration-300 shadow-lg hover:shadow-xl"
+                className="bg-gradient-to-r from-orange-500 to-orange-600 text-white font-bold py-4 px-8 rounded-xl hover:from-orange-600 hover:to-orange-700 transition-all duration-300 shadow-lg hover:shadow-xl"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -173,7 +173,7 @@ export default function Home() {
             className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
           >
             <div>
-              <h2 className="text-4xl font-bold mb-6 text-gray-900">Trusted Currency Exchange</h2>
+              <h2 className="text-4xl font-bold mb-6 gradient-header">Trusted Currency Exchange</h2>
               <p className="text-lg text-gray-600 mb-6 leading-relaxed">
                 Experience the difference with our professional currency exchange services.
                 We provide authentic Iraqi Dinar and Zimbabwe Dollar notes with guaranteed
@@ -181,7 +181,7 @@ export default function Home() {
               </p>
               <div className="space-y-4">
                 <div className="flex items-center space-x-3">
-                  <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
+                  <div className="w-8 h-8 bg-primary-500 rounded-full flex items-center justify-center">
                     <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                     </svg>
@@ -189,7 +189,7 @@ export default function Home() {
                   <span className="text-gray-700">100% Authentic Currency</span>
                 </div>
                 <div className="flex items-center space-x-3">
-                  <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
+                  <div className="w-8 h-8 bg-primary-500 rounded-full flex items-center justify-center">
                     <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                     </svg>
@@ -197,7 +197,7 @@ export default function Home() {
                   <span className="text-gray-700">ASIC & AUSTRAC Registered</span>
                 </div>
                 <div className="flex items-center space-x-3">
-                  <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
+                  <div className="w-8 h-8 bg-primary-500 rounded-full flex items-center justify-center">
                     <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                     </svg>
@@ -225,7 +225,7 @@ export default function Home() {
       </section>
 
       {/* Pricing Section */}
-      <section className="py-20 px-6 bg-gradient-to-br from-gray-50 to-blue-50">
+      <section className="py-20 px-6 section-bg">
         <div className="container mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -233,7 +233,7 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl font-bold mb-4 text-gray-900">Buy Iraqi Dinars</h2>
+            <h2 className="text-4xl font-bold mb-4 gradient-header">Buy Iraqi Dinars</h2>
             <p className="text-xl text-gray-600">Choose your investment amount</p>
           </motion.div>
 
@@ -247,13 +247,13 @@ export default function Home() {
                 transition={{ delay: idx * 0.1 }}
                 className={`relative p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 ${
                   tier.popular
-                    ? 'bg-gradient-to-br from-blue-500 to-emerald-600 text-white scale-105'
-                    : 'bg-white border-2 border-gray-100 hover:border-blue-300'
+                    ? 'bg-gradient-to-br from-primary-500 to-orange-500 text-white scale-105'
+                    : 'bg-white border-2 border-gray-100 hover:border-primary-300'
                 }`}
               >
                 {tier.popular && (
                   <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
-                    <span className="bg-yellow-400 text-gray-900 px-3 py-1 rounded-full text-sm font-bold">
+                    <span className="bg-orange-400 text-gray-900 px-3 py-1 rounded-full text-sm font-bold">
                       POPULAR
                     </span>
                   </div>
@@ -262,7 +262,7 @@ export default function Home() {
                   <div className={`text-2xl font-bold mb-2 ${tier.popular ? 'text-white' : 'text-gray-900'}`}>
                     {tier.amount} IQD
                   </div>
-                  <div className={`text-xl font-semibold mb-4 ${tier.popular ? 'text-white' : 'text-blue-600'}`}>
+                  <div className={`text-xl font-semibold mb-4 ${tier.popular ? 'text-white' : 'text-primary-600'}`}>
                     {tier.price}
                   </div>
                   <motion.button
@@ -270,8 +270,8 @@ export default function Home() {
                     whileTap={{ scale: 0.95 }}
                     className={`w-full py-2 px-4 rounded-lg font-semibold transition-colors ${
                       tier.popular
-                        ? 'bg-white text-blue-600 hover:bg-gray-100'
-                        : 'bg-gradient-to-r from-blue-600 to-emerald-600 text-white hover:from-blue-700 hover:to-emerald-700'
+                        ? 'bg-white text-primary-600 hover:bg-gray-100'
+                        : 'btn-gradient'
                     }`}
                   >
                     Order Now
@@ -287,11 +287,11 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-center"
           >
-            <div className="bg-yellow-50 border-2 border-yellow-200 rounded-xl p-6 mb-6">
-              <p className="text-lg font-semibold text-yellow-800 mb-2">
+            <div className="bg-orange-50 border-2 border-orange-200 rounded-xl p-6 mb-6">
+              <p className="text-lg font-semibold text-orange-800 mb-2">
                 ⚠️ Limited Stock for 2 Mil Plus Orders
               </p>
-              <p className="text-yellow-700">
+              <p className="text-orange-700">
                 Please Call or Text <strong>0417 460 236</strong> before placing any order of 2 Million and Above.
                 There might be slight delays in shipping.
               </p>
@@ -309,7 +309,7 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl font-bold mb-4 text-gray-900">Our Comprehensive Range of Services</h2>
+            <h2 className="text-4xl font-bold mb-4 gradient-header">Our Comprehensive Range of Services</h2>
             <p className="text-xl text-gray-600">Everything you need for successful Iraqi Dinar transactions</p>
           </motion.div>
 
@@ -321,7 +321,7 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: idx * 0.1 }}
-                className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 overflow-hidden"
+                className="card hover:-translate-y-2 overflow-hidden"
               >
                 <div className="relative h-48 overflow-hidden">
                   <img
@@ -333,7 +333,7 @@ export default function Home() {
                   <div className="absolute top-4 left-4 text-4xl">{service.icon}</div>
                 </div>
                 <div className="p-8">
-                  <h3 className="text-xl font-bold mb-3 text-gray-900">{service.title}</h3>
+                  <h3 className="text-xl font-bold mb-3 gradient-header">{service.title}</h3>
                   <p className="text-gray-600 leading-relaxed">{service.description}</p>
                 </div>
               </motion.div>
@@ -343,7 +343,7 @@ export default function Home() {
       </section>
 
       {/* Features Bento Grid */}
-      <section className="py-20 px-6 bg-gradient-to-br from-gray-50 to-emerald-50">
+      <section className="py-20 px-6 section-bg">
         <div className="container mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -351,7 +351,7 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl font-bold mb-4 text-gray-900">Why Choose Dinar Exchange Australia?</h2>
+            <h2 className="text-4xl font-bold mb-4 gradient-header">Why Choose Dinar Exchange Australia?</h2>
             <p className="text-xl text-gray-600">Melbourne-based local company assisting customers all over Australia and New Zealand</p>
           </motion.div>
 
@@ -363,10 +363,10 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: idx * 0.1 }}
-                className="bg-white rounded-2xl p-6 border border-gray-100 hover:border-emerald-300 transition-all duration-300 hover:-translate-y-2 shadow-lg hover:shadow-xl"
+                className="card hover:-translate-y-2"
               >
                 <div className="text-3xl mb-4">{feature.icon}</div>
-                <h3 className="text-lg font-bold mb-2 text-gray-900">{feature.title}</h3>
+                <h3 className="text-lg font-bold mb-2 gradient-header">{feature.title}</h3>
                 <p className="text-gray-600 text-sm">{feature.description}</p>
               </motion.div>
             ))}
@@ -375,7 +375,7 @@ export default function Home() {
       </section>
 
       {/* Investment Section */}
-      <section className="py-20 px-6 bg-gradient-to-r from-blue-600 via-emerald-600 to-teal-600 text-white relative overflow-hidden">
+      <section className="py-20 px-6 bg-gradient-to-r from-primary-600 via-primary-500 to-orange-500 text-white relative overflow-hidden">
         <div className="absolute inset-0 bg-black/10"></div>
         <div className="absolute top-0 left-0 w-96 h-96 bg-white/5 rounded-full mix-blend-multiply filter blur-xl animate-pulse"></div>
         <div className="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full mix-blend-multiply filter blur-xl animate-pulse animation-delay-2000"></div>
@@ -387,7 +387,7 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-center mb-12"
           >
-            <h2 className="text-4xl font-bold mb-6">Why Invest in Iraqi Dinar?</h2>
+            <h2 className="text-4xl font-bold mb-6 text-white">Why Invest in Iraqi Dinar?</h2>
             <p className="text-xl opacity-90 max-w-4xl mx-auto leading-relaxed">
               The Iraqi Dinar is the hottest investment opportunity of this decade. Earlier, the Iraqi Dinar was worth US $3.20 billion,
               and the oil reserves in Iraq are worth over $11.6 trillion. The current value indicates a sharp rise in the value of Iraqi Dinar.
@@ -399,7 +399,7 @@ export default function Home() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 text-center"
+            className="glass rounded-2xl p-8 text-center"
           >
             <p className="text-lg mb-6">
               Oil prices significantly affect the currency's value, and there is always instability in oil prices.
@@ -423,7 +423,7 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl font-bold mb-4 text-gray-900">What Our Customers Say</h2>
+            <h2 className="text-4xl font-bold mb-4 gradient-header">What Our Customers Say</h2>
             <p className="text-xl text-gray-600">Trusted by thousands of satisfied customers across Australia</p>
           </motion.div>
 
@@ -435,7 +435,7 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: idx * 0.1 }}
-                className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2"
+                className="card hover:-translate-y-2"
               >
                 <div className="flex items-center mb-6">
                   <img
@@ -444,10 +444,10 @@ export default function Home() {
                     className="w-16 h-16 rounded-full mr-4 object-cover"
                   />
                   <div>
-                    <h3 className="font-semibold text-gray-900">{testimonial.name}</h3>
+                    <h3 className="font-semibold gradient-header">{testimonial.name}</h3>
                     <div className="flex">
                       {[...Array(testimonial.rating)].map((_, i) => (
-                        <svg key={i} className="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                        <svg key={i} className="w-5 h-5 text-orange-400" fill="currentColor" viewBox="0 0 20 20">
                           <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                         </svg>
                       ))}
@@ -462,7 +462,7 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 px-6 bg-gradient-to-r from-blue-600 via-emerald-600 to-teal-600 relative overflow-hidden">
+      <section className="py-20 px-6 bg-gradient-to-r from-primary-600 via-primary-500 to-orange-500 relative overflow-hidden">
         <div className="absolute inset-0 bg-black/10"></div>
         <div className="absolute top-0 left-0 w-96 h-96 bg-white/5 rounded-full mix-blend-multiply filter blur-xl animate-pulse"></div>
         <div className="absolute bottom-0 right-0 w-96 h-96 bg-white/5 rounded-full mix-blend-multiply filter blur-xl animate-pulse animation-delay-2000"></div>
@@ -484,7 +484,7 @@ export default function Home() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <motion.a
                 href="/contact"
-                className="bg-white text-blue-600 font-bold py-4 px-8 rounded-xl hover:bg-gray-100 transition-colors shadow-lg hover:shadow-xl"
+                className="bg-white text-primary-600 font-bold py-4 px-8 rounded-xl hover:bg-gray-100 transition-colors shadow-lg hover:shadow-xl"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -492,7 +492,7 @@ export default function Home() {
               </motion.a>
               <motion.a
                 href="/resources"
-                className="border-2 border-white text-white font-bold py-4 px-8 rounded-xl hover:bg-white hover:text-blue-600 transition-colors shadow-lg hover:shadow-xl"
+                className="border-2 border-white text-white font-bold py-4 px-8 rounded-xl hover:bg-white hover:text-primary-600 transition-colors shadow-lg hover:shadow-xl"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
