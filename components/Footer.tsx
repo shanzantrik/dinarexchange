@@ -68,7 +68,7 @@ export default function Footer() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
             {/* Company Info */}
             <div>
-              <h3 className="text-xl font-bold mb-4 gradient-header">Dinar Exchange Australia</h3>
+              <h3 className="text-xl font-bold mb-4 text-orange-500">Dinar Exchange Australia</h3>
               <p className="text-gray-300 mb-4">
                 Your trusted partner for Iraqi Dinar transactions across Australia and New Zealand.
               </p>
@@ -93,7 +93,7 @@ export default function Footer() {
 
             {/* Quick Links */}
             <div>
-              <h3 className="text-xl font-bold mb-4 gradient-header">Quick Links</h3>
+              <h3 className="text-xl font-bold mb-4 text-orange-500">Quick Links</h3>
               <ul className="space-y-2">
                 <li><Link href="/" className="text-gray-300 hover:text-white transition-colors">Home</Link></li>
                 <li><Link href="/buy-dinar" className="text-gray-300 hover:text-white transition-colors">Buy Dinar</Link></li>
@@ -106,7 +106,7 @@ export default function Footer() {
 
             {/* Services */}
             <div>
-              <h3 className="text-xl font-bold mb-4 gradient-header">Services</h3>
+              <h3 className="text-xl font-bold mb-4 text-orange-500">Services</h3>
               <ul className="space-y-2">
                 <li><Link href="/about" className="text-gray-300 hover:text-white transition-colors">About Us</Link></li>
                 <li><Link href="/testimonials" className="text-gray-300 hover:text-white transition-colors">Testimonials</Link></li>
@@ -118,7 +118,7 @@ export default function Footer() {
 
             {/* Contact Info */}
             <div>
-              <h3 className="text-xl font-bold mb-4 gradient-header">Contact Info</h3>
+              <h3 className="text-xl font-bold mb-4 text-orange-500">Contact Info</h3>
               <div className="space-y-3 text-gray-300">
                 <div className="flex items-center space-x-2">
                   <svg className="w-5 h-5 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -180,7 +180,7 @@ export default function Footer() {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0 }}
               onClick={scrollToTop}
-              className="fixed bottom-6 right-6 bg-gradient-to-r from-primary-600 to-orange-500 hover:from-primary-700 hover:to-orange-600 text-white p-3 rounded-full shadow-lg z-50 transition-all duration-200"
+              className="fixed bottom-6 left-1/2 transform -translate-x-1/2 bg-orange-500 hover:bg-orange-600 text-white p-3 rounded-full shadow-lg z-50 transition-all duration-200"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
             >
@@ -220,7 +220,7 @@ export default function Footer() {
                   </button>
                   <button
                     onClick={acceptCookies}
-                    className="px-4 py-2 text-sm bg-gradient-to-r from-primary-600 to-orange-500 hover:from-primary-700 hover:to-orange-600 rounded transition-all duration-200"
+                    className="px-4 py-2 text-sm bg-orange-500 hover:bg-orange-600 rounded transition-all duration-200"
                   >
                     Accept
                   </button>

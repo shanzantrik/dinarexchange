@@ -18,8 +18,8 @@ export default function VapiAgentButton() {
       {/* Floating Action Button */}
       <button
         onClick={handleOpenModal}
-        className="fixed bottom-6 right-6 z-40 flex items-center gap-3 px-6 py-4 rounded-full font-bold text-lg shadow-2xl bg-gradient-to-r from-blue-600 to-emerald-600 text-white hover:from-blue-700 hover:to-emerald-700 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-blue-300 transform hover:scale-105"
-        style={{ boxShadow: '0 8px 32px 0 rgba(0, 84, 171, 0.3)' }}
+        className="fixed bottom-6 right-6 z-40 flex items-center gap-3 px-6 py-4 rounded-full font-bold text-lg shadow-2xl bg-orange-500 hover:bg-orange-600 text-white transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-orange-300 transform hover:scale-105"
+        style={{ boxShadow: '0 8px 32px 0 rgba(241, 111, 1, 0.3)' }}
         aria-label="Call Dinar Exchange Support Assistant"
         type="button"
       >
