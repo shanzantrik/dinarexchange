@@ -1,6 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
 import TrustpilotWidget from '../../components/TrustpilotWidget';
+import BuyDinarBento from '../../components/BuyDinarBento';
 
 const testimonials = [
   {
@@ -399,10 +400,14 @@ export default function Testimonials() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-primary-50 to-orange-50">
       {/* Hero Section */}
-      <section className="py-20 px-6 bg-gradient-to-r from-blue-600 to-emerald-600 text-white">
-        <div className="container mx-auto text-center">
+      <section className="py-20 px-6 bg-gradient-to-r from-primary-500 via-primary-500 to-orange-500 text-white relative overflow-hidden">
+        <div className="absolute inset-0 bg-black/10"></div>
+        <div className="absolute top-0 left-0 w-96 h-96 bg-white/5 rounded-full mix-blend-multiply filter blur-xl animate-pulse"></div>
+        <div className="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full mix-blend-multiply filter blur-xl animate-pulse animation-delay-2000"></div>
+
+        <div className="relative container mx-auto text-center">
           <h1 className="text-5xl md:text-6xl font-bold mb-6 animate-fade-in">
             Customer Testimonials
           </h1>
@@ -417,12 +422,15 @@ export default function Testimonials() {
         </div>
       </section>
 
+      {/* Buy Iraqi Dinars Section */}
+      <BuyDinarBento />
+
       {/* Overall Rating Section */}
       <section className="py-16 px-6 bg-white">
         <div className="container mx-auto text-center">
-          <div className="bg-gradient-to-r from-blue-50 to-emerald-50 rounded-2xl p-8 shadow-lg">
+          <div className="bg-gradient-to-r from-primary-50 to-orange-50 rounded-2xl p-8 shadow-lg border border-primary-100">
             <h2 className="text-3xl font-bold mb-4 text-gray-900">Overall Rating</h2>
-            <div className="text-6xl font-bold text-blue-600 mb-4">4.8</div>
+            <div className="text-6xl font-bold text-primary-500 mb-4">4.8</div>
             <div className="flex justify-center mb-4">
               <StarRating rating={5} />
             </div>
@@ -457,7 +465,7 @@ export default function Testimonials() {
             <div className="flex justify-center items-center space-x-4 mb-8">
               <button
                 onClick={prevTestimonial}
-                className="bg-blue-600 text-white p-3 rounded-full hover:bg-blue-700 transition-colors duration-200"
+                className="bg-primary-500 text-white p-3 rounded-full hover:bg-primary-600 transition-colors duration-200"
               >
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -477,7 +485,7 @@ export default function Testimonials() {
 
               <button
                 onClick={nextTestimonial}
-                className="bg-blue-600 text-white p-3 rounded-full hover:bg-blue-700 transition-colors duration-200"
+                className="bg-primary-500 text-white p-3 rounded-full hover:bg-primary-600 transition-colors duration-200"
               >
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -492,7 +500,7 @@ export default function Testimonials() {
                   key={index}
                   onClick={() => goToTestimonial(index)}
                   className={`w-3 h-3 rounded-full transition-colors duration-200 ${
-                    index === currentIndex ? 'bg-blue-600' : 'bg-gray-300 hover:bg-gray-400'
+                    index === currentIndex ? 'bg-orange-500' : 'bg-gray-300 hover:bg-gray-400'
                   }`}
                 />
               ))}
@@ -537,8 +545,12 @@ export default function Testimonials() {
       </section>
 
       {/* Call to Action */}
-      <section className="py-16 px-6 bg-gradient-to-r from-emerald-600 to-teal-600 text-white">
-        <div className="container mx-auto text-center">
+      <section className="py-16 px-6 bg-gradient-to-r from-primary-500 via-primary-500 to-orange-500 text-white relative overflow-hidden">
+        <div className="absolute inset-0 bg-black/10"></div>
+        <div className="absolute top-0 left-0 w-96 h-96 bg-white/5 rounded-full mix-blend-multiply filter blur-xl animate-pulse"></div>
+        <div className="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full mix-blend-multiply filter blur-xl animate-pulse animation-delay-2000"></div>
+
+        <div className="relative container mx-auto text-center">
           <h2 className="text-3xl font-bold mb-4">Join Our Satisfied Customers</h2>
           <p className="text-xl mb-8 opacity-90">
             Experience the same level of service that our customers rave about
@@ -546,19 +558,38 @@ export default function Testimonials() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
               href="/buy-dinar"
-              className="bg-white text-emerald-600 font-bold py-3 px-8 rounded-lg hover:bg-gray-100 transition-colors duration-200"
+              className="bg-white text-primary-500 font-bold py-3 px-8 rounded-xl hover:bg-gray-100 transition-all duration-300 shadow-lg hover:shadow-xl"
             >
               Buy Iraqi Dinar
             </a>
             <a
               href="/contact"
-              className="border-2 border-white text-white font-bold py-3 px-8 rounded-lg hover:bg-white hover:text-emerald-600 transition-colors duration-200"
+              className="border-2 border-white text-white font-bold py-3 px-8 rounded-xl hover:bg-white hover:text-primary-500 transition-all duration-300 shadow-lg hover:shadow-xl"
             >
               Contact Us
             </a>
           </div>
         </div>
       </section>
+
+      <style jsx>{`
+        @keyframes fade-in {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        .animate-fade-in {
+          animation: fade-in 0.6s ease-out forwards;
+        }
+        .animation-delay-2000 {
+          animation-delay: 2s;
+        }
+      `}</style>
     </div>
   );
 }

@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import BuyDinarBento from '../../components/BuyDinarBento';
 
 const faqData = {
   general: [
@@ -134,17 +135,6 @@ const faqData = {
   ]
 };
 
-const pricingData = [
-  { amount: "25,000", price: "$186.25", link: "/buy-dinar" },
-  { amount: "50,000", price: "$281.25", link: "/buy-dinar" },
-  { amount: "75,000", price: "$325.00", link: "/buy-dinar" },
-  { amount: "100,000", price: "$381.00", link: "/buy-dinar" },
-  { amount: "200,000", price: "$656.00", link: "/buy-dinar" },
-  { amount: "500,000", price: "$1,875.0", link: "/buy-dinar" },
-  { amount: "1,000,000", price: "$2,800.00", link: "/buy-dinar" },
-  { amount: "20 Million +", price: "Please Call or Email Us", link: "/contact" }
-];
-
 export default function FAQ() {
   const [openSection, setOpenSection] = useState<string | null>('general');
   const [openQuestions, setOpenQuestions] = useState<Set<string>>(new Set());
@@ -174,63 +164,40 @@ export default function FAQ() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-primary-50 to-orange-50">
       {/* Hero Section */}
-      <section className="py-20 px-6 bg-gradient-to-r from-blue-600 to-emerald-600 text-white">
-        <div className="container mx-auto text-center">
+      <section className="py-20 px-6 bg-gradient-to-r from-primary-500 via-primary-500 to-orange-500 text-white relative overflow-hidden">
+        <div className="absolute inset-0 bg-black/10"></div>
+        <div className="absolute top-0 left-0 w-96 h-96 bg-white/5 rounded-full mix-blend-multiply filter blur-xl animate-pulse"></div>
+        <div className="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full mix-blend-multiply filter blur-xl animate-pulse animation-delay-2000"></div>
+
+        <div className="relative container mx-auto text-center">
           <h1 className="text-5xl md:text-6xl font-bold mb-6 animate-fade-in">
-            Your Number One Source
+            Frequently Asked Questions
           </h1>
           <p className="text-2xl md:text-3xl font-semibold mb-8 animate-fade-in" style={{ animationDelay: "200ms" }}>
-            Buying and Selling Iraqi Dinars in Australia and New Zealand
+            Everything you need to know about Iraqi Dinar & Zimbabwe Dollar purchases
           </p>
         </div>
       </section>
 
-      {/* Pricing Section */}
-      <section className="py-16 px-6 bg-white">
-        <div className="container mx-auto">
-          <h2 className="text-3xl font-bold mb-8 text-center text-gray-900">Buy Iraqi Dinars</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {pricingData.map((item, index) => (
-              <div
-                key={index}
-                className="bg-gradient-to-br from-blue-50 to-emerald-50 rounded-xl p-6 text-center hover:shadow-lg transition-all duration-300 hover:-translate-y-1 animate-fade-in"
-                style={{ animationDelay: `${index * 100}ms` }}
-              >
-                <div className="text-2xl font-bold text-gray-900 mb-2">{item.amount} Dinars</div>
-                <div className="text-xl font-semibold text-blue-600 mb-4">{item.price}</div>
-                <a
-                  href={item.link}
-                  className="inline-block bg-blue-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-blue-700 transition-colors duration-200"
-                >
-                  {item.amount.includes('Million') ? 'Contact Us' : 'Order Now'}
-                </a>
-              </div>
-            ))}
-          </div>
-          <div className="mt-8 text-center">
-            <p className="text-gray-600 mb-4">
-              Please Call Us on 1300 856 881 or 0417 460 236 before placing any order of 1 Million and Above.
-            </p>
-            <p className="text-sm text-gray-500">
-              There might be slight delays in shipping.
-            </p>
-          </div>
-        </div>
-      </section>
+      {/* Buy Iraqi Dinars Section */}
+      <BuyDinarBento />
 
       {/* FAQ Section */}
       <section className="py-20 px-6">
         <div className="container mx-auto max-w-4xl">
           <h2 className="text-4xl font-bold mb-12 text-center text-gray-900">Frequently Asked Questions</h2>
+          <p className="text-lg text-gray-600 mb-12 text-center">
+            Frequently Asked Questions in regards to purchase of currency at Dinar Exchange:
+          </p>
 
           <div className="space-y-6">
             {sections.map((section) => (
               <div key={section.key} className="bg-white rounded-xl shadow-lg overflow-hidden">
                 <button
                   onClick={() => toggleSection(section.key)}
-                  className="w-full px-6 py-4 bg-gradient-to-r from-blue-600 to-emerald-600 text-white font-semibold text-left flex items-center justify-between hover:from-blue-700 hover:to-emerald-700 transition-all duration-200"
+                  className="w-full px-6 py-4 bg-gradient-to-r from-primary-500 via-primary-500 to-orange-500 text-white font-semibold text-left flex items-center justify-between hover:from-primary-600 hover:to-orange-600 transition-all duration-200"
                 >
                   <span className="flex items-center">
                     <span className="text-2xl mr-3">{section.icon}</span>
@@ -254,7 +221,7 @@ export default function FAQ() {
                       <div key={index} className="border-b border-gray-200 last:border-b-0 pb-4 last:pb-0">
                         <button
                           onClick={() => toggleQuestion(item.question)}
-                          className="w-full text-left font-semibold text-gray-900 hover:text-blue-600 transition-colors duration-200 flex items-center justify-between"
+                          className="w-full text-left font-semibold text-gray-900 hover:text-primary-500 transition-colors duration-200 flex items-center justify-between"
                         >
                           <span className="pr-4">{item.question}</span>
                           <svg
@@ -284,8 +251,12 @@ export default function FAQ() {
       </section>
 
       {/* Contact Section */}
-      <section className="py-16 px-6 bg-gradient-to-r from-emerald-600 to-teal-600 text-white">
-        <div className="container mx-auto text-center">
+      <section className="py-16 px-6 bg-gradient-to-r from-primary-500 via-primary-500 to-orange-500 text-white relative overflow-hidden">
+        <div className="absolute inset-0 bg-black/10"></div>
+        <div className="absolute top-0 left-0 w-96 h-96 bg-white/5 rounded-full mix-blend-multiply filter blur-xl animate-pulse"></div>
+        <div className="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full mix-blend-multiply filter blur-xl animate-pulse animation-delay-2000"></div>
+
+        <div className="relative container mx-auto text-center">
           <h2 className="text-3xl font-bold mb-4">Still have questions? Reach out to us!</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
             <div className="bg-white/10 rounded-lg p-6 backdrop-blur-sm">
@@ -311,6 +282,25 @@ export default function FAQ() {
           </div>
         </div>
       </section>
+
+      <style jsx>{`
+        @keyframes fade-in {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        .animate-fade-in {
+          animation: fade-in 0.6s ease-out forwards;
+        }
+        .animation-delay-2000 {
+          animation-delay: 2s;
+        }
+      `}</style>
     </div>
   );
 }

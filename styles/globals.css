@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 .btn-primary {
-  @apply bg-primary-600 hover:bg-primary-700 text-white font-bold py-3 px-6 rounded-xl shadow-lg transition-all duration-200 hover:shadow-xl;
+  @apply bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-6 rounded-xl shadow-lg transition-all duration-200 hover:shadow-xl;
 }
 
 .btn-secondary {
@@ -20,12 +20,12 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #3b82f6;
+  background: #094194;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #2563eb;
+  background: #1e40af;
 }
 
 /* Custom animations */
@@ -45,13 +45,13 @@
   animation: float 3s ease-in-out infinite;
 }
 
-/* Gradient text utilities */
+/* Title text utilities */
 .gradient-text {
-  @apply bg-gradient-to-r from-primary-600 via-primary-500 to-orange-500 text-transparent bg-clip-text;
+  @apply text-orange-500;
 }
 
 .gradient-header {
-  @apply bg-gradient-to-r from-primary-600 to-orange-500 text-transparent bg-clip-text;
+  @apply text-orange-500;
 }
 
 /* Glass morphism effect */
@@ -59,14 +59,14 @@
   @apply bg-white/10 backdrop-blur-sm border border-white/20;
 }
 
-/* Header and title gradients */
+/* Header and title colors */
 h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
-  @apply gradient-header;
+  @apply text-orange-500;
 }
 
 /* Section backgrounds */
@@ -81,5 +81,5 @@ h6 {
 
 /* Button variants */
 .btn-gradient {
-  @apply bg-gradient-to-r from-primary-600 to-orange-500 hover:from-primary-700 hover:to-orange-600 text-white font-bold py-3 px-6 rounded-xl shadow-lg transition-all duration-200 hover:shadow-xl;
+  @apply bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-6 rounded-xl shadow-lg transition-all duration-200 hover:shadow-xl;
 }
