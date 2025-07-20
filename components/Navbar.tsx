@@ -19,19 +19,19 @@ export default function Navbar() {
 
   return (
     <header className="bg-white shadow-lg fixed w-full z-40 border-b border-gray-200">
-      <div className="container mx-auto flex items-center justify-between py-4 px-6">
+      <div className="container mx-auto flex items-center justify-between py-3 md:py-4 px-4 md:px-6 lg:px-8">
         {/* Logo */}
         <Link href="/" className="flex items-center">
           <Logo />
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden lg:flex items-center space-x-8">
+        <nav className="hidden md:flex items-center space-x-3 lg:space-x-6 xl:space-x-8">
           {navLinks.map(n => (
             <Link
               key={n.label}
               href={n.href}
-              className="text-gray-700 hover:text-orange-500 transition-colors duration-200 font-medium"
+              className="text-gray-700 hover:text-orange-500 transition-colors duration-200 font-medium text-sm lg:text-base"
             >
               {n.label}
             </Link>
@@ -39,7 +39,7 @@ export default function Navbar() {
         </nav>
 
         {/* Social Icons & Contact Button */}
-        <div className="hidden md:flex items-center space-x-4">
+        <div className="hidden lg:flex items-center space-x-4">
           {/* Social Icons */}
           <div className="flex items-center space-x-3">
             <a
@@ -85,7 +85,7 @@ export default function Navbar() {
         </div>
 
         {/* Mobile Menu Button */}
-        <div className="md:hidden">
+        <div className="lg:hidden">
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
             className="p-2 text-gray-600 hover:text-orange-500 transition-colors duration-200"
