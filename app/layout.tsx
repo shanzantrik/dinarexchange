@@ -1,11 +1,11 @@
-import '../styles/globals.css'
+import './globals.css'
 import { ReactNode } from 'react'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 
 export const metadata = {
-  title: 'Dinar Exchange Australia',
-  description: 'Trusted Iraqi Dinar & Zimbabwe Dollar Exchange in Australia'
+  title: 'Dinar Exchange New Zealand',
+  description: 'Trusted Iraqi Dinar & Zimbabwe Dollar Exchange in New Zealand'
 }
 
 export default function RootLayout({ children }: { children: ReactNode }) {

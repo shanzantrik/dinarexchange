@@ -21,13 +21,20 @@ export default function HamburgerMenu({ open, onClose, navLinks }: HamburgerMenu
       initial={{ x: "100%" }}
       animate={{ x: 0 }}
       exit={{ x: "100%" }}
-      className="fixed inset-0 bg-black bg-opacity-50 z-50"
+      className="fixed inset-0 z-50"
     >
-      <div className="w-80 bg-white h-full shadow-xl overflow-y-auto">
+      {/* Backdrop */}
+      <div
+        onClick={onClose}
+        className="fixed inset-0 bg-black bg-opacity-50"
+      />
+
+      {/* Menu Panel */}
+      <div className="fixed right-0 top-0 w-80 md:w-96 lg:w-80 bg-white h-full shadow-xl overflow-y-auto z-50">
         {/* Header */}
         <div className="bg-gradient-to-r from-primary-500 to-orange-500 text-white p-6">
           <div className="flex items-center justify-between">
-            <h2 className="text-xl font-bold">Menu</h2>
+            <h2 className="text-xl text-white font-bold">Menu</h2>
             <button
               onClick={onClose}
               className="p-2 hover:bg-white hover:bg-opacity-20 rounded-lg transition-colors duration-200"
@@ -40,14 +47,14 @@ export default function HamburgerMenu({ open, onClose, navLinks }: HamburgerMenu
         </div>
 
         {/* Navigation Links */}
-        <div className="p-6">
-          <nav className="space-y-2 mb-8">
+        <div className="p-4 md:p-6">
+          <nav className="space-y-1 md:space-y-2 mb-6 md:mb-8">
             {navLinks.map((n) => (
               <Link
                 key={n.label}
                 onClick={onClose}
                 href={n.href}
-                className="block px-4 py-3 text-gray-700 hover:text-orange-500 hover:bg-orange-50 rounded-lg transition-all duration-200 font-medium"
+                className="block px-3 md:px-4 py-2 md:py-3 text-gray-700 hover:text-orange-500 hover:bg-orange-50 rounded-lg transition-all duration-200 font-medium text-sm md:text-base"
               >
                 {n.label}
               </Link>
@@ -73,7 +80,7 @@ export default function HamburgerMenu({ open, onClose, navLinks }: HamburgerMenu
             <h3 className="text-sm font-semibold text-gray-600 mb-4">Follow Us</h3>
             <div className="flex items-center space-x-4">
               <a
-                href="https://facebook.com"
+                href="https://facebook.com/DinarExchange"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-600 hover:text-primary-500 transition-colors duration-200 p-2 hover:bg-gray-100 rounded-lg"
@@ -93,7 +100,7 @@ export default function HamburgerMenu({ open, onClose, navLinks }: HamburgerMenu
                 </svg>
               </a>
               <a
-                href="mailto:dinars@dinarexchange.com.au"
+                href="mailto:dinars@dinarexchange.com.nz"
                 className="text-gray-600 hover:text-orange-500 transition-colors duration-200 p-2 hover:bg-gray-100 rounded-lg"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -123,15 +130,12 @@ export default function HamburgerMenu({ open, onClose, navLinks }: HamburgerMenu
                 <svg className="w-4 h-4 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                 </svg>
-                <span>dinars@dinarexchange.com.au</span>
+                <span>dinars@dinarexchange.com.nz</span>
               </div>
             </div>
           </div>
         </div>
       </div>
-
-      {/* Backdrop */}
-      <div onClick={onClose} className="fixed inset-0 z-40" />
     </motion.div>
   );
 }

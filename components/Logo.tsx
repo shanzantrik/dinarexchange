@@ -18,8 +18,7 @@ export default function Logo() {
         className="h-10 w-auto"
         priority
       />
-      <div className="flex items-center space-x-2">
-        <span className="text-lg font-semibold text-orange-500">New Zealand</span>
+      <div className="flex items-center">
         <span className="text-2xl">🇳🇿</span>
       </div>
     </motion.div>
