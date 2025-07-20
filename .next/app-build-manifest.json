@@ -16,25 +16,10 @@
       "static/chunks/main-app.js",
       "static/chunks/app/buy-dinar/page.js"
     ],
-    "/faq/page": [
+    "/buy-zim/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/faq/page.js"
-    ],
-    "/testimonials/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/testimonials/page.js"
-    ],
-    "/sell-dinar/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/sell-dinar/page.js"
-    ],
-    "/rates/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/rates/page.js"
+      "static/chunks/app/buy-zim/page.js"
     ],
     "/resources/page": [
       "static/chunks/webpack.js",
@@ -46,20 +31,10 @@
       "static/chunks/main-app.js",
       "static/chunks/app/about/page.js"
     ],
-    "/contact/page": [
+    "/testimonials/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/contact/page.js"
-    ],
-    "/buy-zim/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/buy-zim/page.js"
-    ],
-    "/_not-found/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/_not-found/page.js"
+      "static/chunks/app/testimonials/page.js"
     ]
   }
 }
