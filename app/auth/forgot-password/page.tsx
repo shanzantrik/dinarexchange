@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import { Auth } from '@supabase/auth-ui-react'
 import { ThemeSupa } from '@supabase/auth-ui-shared'
 import { createClient } from '@/lib/supabase'
+import { getAuthRedirectUrl } from '@/lib/utils'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 
@@ -121,7 +122,7 @@ export default function ForgotPassword() {
                 },
               },
             }}
-            redirectTo={`${typeof window !== 'undefined' ? window.location.origin : 'http://localhost:3000'}/auth/callback`}
+            redirectTo={getAuthRedirectUrl()}
           />
           )}
         </motion.div>

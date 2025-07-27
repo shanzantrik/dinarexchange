@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { Auth } from '@supabase/auth-ui-react'
 import { ThemeSupa } from '@supabase/auth-ui-shared'
 import { createClient } from '@/lib/supabase'
+import { getAuthRedirectUrl } from '@/lib/utils'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 
@@ -123,7 +124,7 @@ function SignInForm() {
               },
             }}
             providers={['google']}
-            redirectTo={`${typeof window !== 'undefined' ? window.location.origin : 'http://localhost:3000'}/auth/callback?redirectedFrom=${redirectedFrom}`}
+            redirectTo={`${getAuthRedirectUrl()}?redirectedFrom=${redirectedFrom}`}
           />
           )}
         </motion.div>
