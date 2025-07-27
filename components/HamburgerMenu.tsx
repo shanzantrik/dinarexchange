@@ -1,6 +1,8 @@
 'use client';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import { useAuth } from '@/contexts/AuthContext';
+import { User, LogOut } from 'lucide-react';
 
 interface NavLink {
   label: string;
@@ -14,6 +16,8 @@ interface HamburgerMenuProps {
 }
 
 export default function HamburgerMenu({ open, onClose, navLinks }: HamburgerMenuProps) {
+  const { user, signOut } = useAuth();
+  
   if (!open) return null;
 
   return (
@@ -61,8 +65,48 @@ export default function HamburgerMenu({ open, onClose, navLinks }: HamburgerMenu
             ))}
           </nav>
 
-          {/* Contact Button */}
-          <div className="mb-8">
+          {/* Auth/Contact Buttons */}
+          <div className="mb-8 space-y-3">
+            {user ? (
+              <>
+                <Link
+                  onClick={onClose}
+                  href="/dashboard"
+                  className="flex items-center justify-center space-x-2 w-full px-4 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
+                >
+                  <User className="w-5 h-5" />
+                  <span>Dashboard</span>
+                </Link>
+                <button
+                  onClick={() => {
+                    signOut();
+                    onClose();
+                  }}
+                  className="flex items-center justify-center space-x-2 w-full px-4 py-3 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                >
+                  <LogOut className="w-5 h-5" />
+                  <span>Sign Out</span>
+                </button>
+              </>
+            ) : (
+              <>
+                <Link
+                  onClick={onClose}
+                  href="/auth/signin"
+                  className="flex items-center justify-center w-full px-4 py-3 text-primary-600 hover:text-primary-700 font-medium transition-colors"
+                >
+                  Sign In
+                </Link>
+                <Link
+                  onClick={onClose}
+                  href="/auth/signup"
+                  className="btn-gradient flex items-center justify-center space-x-2 w-full"
+                >
+                  <span>Sign Up</span>
+                </Link>
+              </>
+            )}
+            
             <Link
               onClick={onClose}
               href="/contact"

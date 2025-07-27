@@ -109,7 +109,13 @@ export default function OrderFlow({ selectedOption, totalAmount, onComplete }: O
     setCurrentStep(2);
   };
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const handleSubmitOrder = async () => {
+    if (isSubmitting) {
+      return; // Prevent duplicate submissions
+    }
+
     if (!formData.agreeToTerms) {
       showModal(
         'Terms Agreement Required',
@@ -128,6 +134,8 @@ export default function OrderFlow({ selectedOption, totalAmount, onComplete }: O
       return;
     }
 
+    setIsSubmitting(true);
+
     try {
       // Show loading modal
       showModal(
@@ -136,27 +144,38 @@ export default function OrderFlow({ selectedOption, totalAmount, onComplete }: O
         'info'
       );
 
-      // Determine currency type based on selected option
-      const currencyType = selectedOption.description.includes('Iraqi') ? 'Iraqi Dinar' : 'Zimbabwe Dollar';
+      // Prepare customer info for database
+      const customerInfo = {
+        fullName: `${formData.firstName} ${formData.middleName ? formData.middleName + ' ' : ''}${formData.lastName}`.trim(),
+        email: formData.email,
+        phone: formData.phoneNumber,
+        mobile: formData.mobileNumber,
+        address: `${formData.address1}${formData.address2 ? ', ' + formData.address2 : ''}, ${formData.city}, ${formData.state}, ${formData.postcode}, ${formData.country}`,
+        dateOfBirth: formData.dateOfBirth,
+        idType: formData.idType,
+        idNumber: formData.driversLicenseNumber || formData.passportNumber || formData.otherGovernmentId,
+        comments: formData.comments
+      };
 
-      // Send email
-      const response = await fetch('/api/send-email', {
+      // Create order in database
+      const response = await fetch('/api/orders', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          formData,
           selectedOption,
           totalAmount,
-          currencyType
+          customerInfo,
+          paymentMethod: formData.paymentMethod,
+          orderNumber: `ORD-${Date.now()}-${Math.random().toString(36).substr(2, 9).toUpperCase()}`
         }),
       });
 
       const result = await response.json();
 
       if (!response.ok) {
-        throw new Error(result.error || 'Failed to send email');
+        throw new Error(result.error || 'Failed to create order');
       }
 
       // Close loading modal
@@ -165,7 +184,7 @@ export default function OrderFlow({ selectedOption, totalAmount, onComplete }: O
       // Show success modal
       showModal(
         'Order Submitted Successfully!',
-        'Your order has been submitted and confirmation emails have been sent. You will receive payment instructions shortly.',
+        `Your order has been submitted and confirmation emails have been sent. Order Number: ${result.order.order_number}. You will receive payment instructions shortly.`,
         'success'
       );
 
@@ -174,7 +193,8 @@ export default function OrderFlow({ selectedOption, totalAmount, onComplete }: O
         selectedOption,
         totalAmount,
         uploadedFile: uploadedFile.name,
-        orderDate: new Date().toISOString()
+        orderDate: new Date().toISOString(),
+        orderNumber: result.order.order_number
       };
 
       // Call onComplete after a short delay to show the success message
@@ -190,6 +210,8 @@ export default function OrderFlow({ selectedOption, totalAmount, onComplete }: O
         'There was an error submitting your order. Please try again or contact us for assistance.',
         'error'
       );
+    } finally {
+      setIsSubmitting(false);
     }
   };
 

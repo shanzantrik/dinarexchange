@@ -1,5 +1,7 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useAuth } from '@/contexts/AuthContext';
+import { useRouter } from 'next/navigation';
 import OrderFlow from '@/components/OrderFlow';
 
 const zimOptions = [
@@ -18,9 +20,13 @@ const zimOptions = [
 ];
 
 export default function BuyZim() {
+  const { user, loading } = useAuth();
+  const router = useRouter();
   const [selectedOption, setSelectedOption] = useState<any>(null);
   const [showOrderFlow, setShowOrderFlow] = useState(false);
   const [orderComplete, setOrderComplete] = useState(false);
+
+  // No automatic redirect - show content first
 
   const handleOptionSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedId = parseInt(e.target.value);
@@ -33,21 +39,81 @@ export default function BuyZim() {
       alert('Please select a quantity first.');
       return;
     }
+    
+    // Check if user is logged in
+    if (!user) {
+      router.push('/auth/signin?redirectedFrom=/buy-zim');
+      return;
+    }
+    
     setShowOrderFlow(true);
   };
 
-  const handleOrderComplete = (orderData: any) => {
-    console.log('Order completed:', orderData);
-    setOrderComplete(true);
-    setShowOrderFlow(false);
+  const handleOrderComplete = async (orderData: any) => {
+    try {
+      // Generate order number
+      const orderNumber = `ORD-${Date.now()}-${Math.random().toString(36).substr(2, 9).toUpperCase()}`;
+      
+      // Create order in database
+      const response = await fetch('/api/orders', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          selectedOption,
+          totalAmount: selectedOption?.price || 0,
+          customerInfo: orderData,
+          paymentMethod: orderData.paymentMethod,
+          orderNumber
+        }),
+      });
 
-    // Show success message
-    alert('Order submitted successfully! You will receive a confirmation email shortly.');
+      if (!response.ok) {
+        throw new Error('Failed to create order');
+      }
 
-    // Reset form
-    setSelectedOption(null);
-    setOrderComplete(false);
+      const result = await response.json();
+      
+      console.log('Order completed:', result);
+      setOrderComplete(true);
+      setShowOrderFlow(false);
+
+      // Show success message
+      alert('Order submitted successfully! You will receive a confirmation email shortly.');
+
+      // Reset form
+      setSelectedOption(null);
+      setOrderComplete(false);
+    } catch (error) {
+      console.error('Order creation error:', error);
+      alert('Failed to submit order. Please try again.');
+    }
   };
+
+  // Show loading state
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary-500 mx-auto"></div>
+          <p className="mt-4 text-gray-600">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Show loading state
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary-500 mx-auto"></div>
+          <p className="mt-4 text-gray-600">Loading...</p>
+        </div>
+      </div>
+    );
+  }
 
   if (showOrderFlow) {
     return (
@@ -99,6 +165,43 @@ export default function BuyZim() {
             <p className="text-orange-800 font-semibold">
               💳 All orders are accepted in AUD only. Payment will be made in AUD.
             </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Login Required Notice */}
+      <section className="py-6 px-6 bg-blue-50 border-b border-blue-200">
+        <div className="container mx-auto text-center">
+          <div className="bg-white rounded-lg p-6 shadow-sm border border-blue-200">
+            <div className="flex items-center justify-center mb-3">
+              <svg className="w-6 h-6 text-blue-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+              </svg>
+              <h3 className="text-lg font-bold text-blue-900">Login Required for All Purchases</h3>
+            </div>
+            <p className="text-blue-800 mb-4">
+              For your security and to provide the best service, all purchases require a registered account.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+              <div className="flex items-center">
+                <svg className="w-4 h-4 text-green-600 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                </svg>
+                <span className="text-blue-700">Secure Order Processing</span>
+              </div>
+              <div className="flex items-center">
+                <svg className="w-4 h-4 text-green-600 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                </svg>
+                <span className="text-blue-700">Track Order Status</span>
+              </div>
+              <div className="flex items-center">
+                <svg className="w-4 h-4 text-green-600 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                </svg>
+                <span className="text-blue-700">Email Notifications</span>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -156,6 +259,105 @@ export default function BuyZim() {
 
             {/* Information Panel */}
             <div className="space-y-6">
+              {/* Login Benefits */}
+              <div className="bg-gradient-to-r from-blue-50 to-blue-100 rounded-xl shadow-lg p-8 border border-blue-200">
+                <div className="flex items-center mb-6">
+                  <div className="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center mr-4">
+                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-bold text-blue-900">Account Benefits</h3>
+                    <p className="text-blue-700">Why login is required for all purchases</p>
+                  </div>
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-4">
+                    <div className="flex items-start space-x-3">
+                      <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center mt-1">
+                        <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                        </svg>
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-blue-900">Secure Order Processing</h4>
+                        <p className="text-blue-700 text-sm">Your personal and payment information is protected with bank-level security</p>
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-start space-x-3">
+                      <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center mt-1">
+                        <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                        </svg>
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-blue-900">Real-time Order Tracking</h4>
+                        <p className="text-blue-700 text-sm">Monitor your order status from processing to delivery</p>
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-start space-x-3">
+                      <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center mt-1">
+                        <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                        </svg>
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-blue-900">Email Notifications</h4>
+                        <p className="text-blue-700 text-sm">Receive updates on order status, shipping, and delivery</p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-4">
+                    <div className="flex items-start space-x-3">
+                      <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center mt-1">
+                        <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                        </svg>
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-blue-900">Order History</h4>
+                        <p className="text-blue-700 text-sm">Access your complete purchase history and receipts</p>
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-start space-x-3">
+                      <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center mt-1">
+                        <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                        </svg>
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-blue-900">Customer Support</h4>
+                        <p className="text-blue-700 text-sm">Priority support for registered customers</p>
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-start space-x-3">
+                      <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center mt-1">
+                        <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                        </svg>
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-blue-900">AUSTRAC Compliance</h4>
+                        <p className="text-blue-700 text-sm">All transactions are recorded for regulatory compliance</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="mt-6 p-4 bg-blue-100 rounded-lg border border-blue-200">
+                  <p className="text-blue-800 text-sm font-medium">
+                    <strong>Note:</strong> Account creation is free and takes less than 2 minutes. Your information is protected and never shared with third parties.
+                  </p>
+                </div>
+              </div>
+
               {/* Trust Information */}
               <div className="bg-white rounded-xl shadow-lg p-8">
                 <h3 className="text-2xl font-bold mb-6 text-gray-900">Why Choose Dinar Exchange New Zealand?</h3>

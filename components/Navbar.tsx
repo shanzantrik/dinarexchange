@@ -3,6 +3,8 @@ import Link from 'next/link';
 import { useState } from 'react';
 import HamburgerMenu from './HamburgerMenu';
 import Logo from './Logo';
+import { useAuth } from '@/contexts/AuthContext';
+import { User, LogOut } from 'lucide-react';
 
 const navLinks = [
   { label: "Home", href: "/" },
@@ -16,6 +18,7 @@ const navLinks = [
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { user, signOut } = useAuth();
 
   return (
     <header className="bg-white shadow-lg fixed w-full z-40 border-b border-gray-200">
@@ -71,6 +74,41 @@ export default function Navbar() {
               </svg>
             </a>
           </div>
+
+          {/* Auth/Contact Buttons */}
+          {user ? (
+            <div className="flex items-center space-x-3">
+              <Link
+                href="/dashboard"
+                className="flex items-center space-x-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
+              >
+                <User className="w-4 h-4" />
+                <span>Dashboard</span>
+              </Link>
+              <button
+                onClick={signOut}
+                className="flex items-center space-x-2 px-4 py-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+              >
+                <LogOut className="w-4 h-4" />
+                <span>Sign Out</span>
+              </button>
+            </div>
+          ) : (
+            <div className="flex items-center space-x-3">
+              <Link
+                href="/auth/signin"
+                className="px-4 py-2 text-primary-600 hover:text-primary-700 font-medium transition-colors"
+              >
+                Sign In
+              </Link>
+              <Link
+                href="/auth/signup"
+                className="btn-gradient flex items-center space-x-2"
+              >
+                <span>Sign Up</span>
+              </Link>
+            </div>
+          )}
 
           {/* Contact Button */}
           <Link
