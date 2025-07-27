@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Auth } from '@supabase/auth-ui-react'
 import { ThemeSupa } from '@supabase/auth-ui-shared'
@@ -8,23 +8,29 @@ import { createClient } from '@/lib/supabase'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 
-export default function SignIn() {
-  const [supabase] = useState(() => createClient())
+function SignInForm() {
+  const [supabase, setSupabase] = useState<any>(null)
   const router = useRouter()
   const searchParams = useSearchParams()
   const redirectedFrom = searchParams.get('redirectedFrom') || '/dashboard'
 
   useEffect(() => {
+    setSupabase(createClient())
+  }, [])
+
+  useEffect(() => {
+    if (!supabase) return;
+    
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange((event, session) => {
+    } = supabase.auth.onAuthStateChange((event: string, session: any) => {
       if (event === 'SIGNED_IN' && session) {
         router.push(redirectedFrom)
       }
     })
 
     return () => subscription.unsubscribe()
-  }, [supabase.auth, router, redirectedFrom])
+  }, [supabase, router, redirectedFrom])
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-primary-50 to-orange-50 flex items-center justify-center px-4 py-12">
@@ -61,8 +67,9 @@ export default function SignIn() {
           transition={{ delay: 0.4 }}
           className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100"
         >
-          <Auth
-            supabaseClient={supabase}
+          {supabase && (
+            <Auth
+              supabaseClient={supabase}
             appearance={{
               theme: ThemeSupa,
               variables: {
@@ -118,6 +125,7 @@ export default function SignIn() {
             providers={['google']}
             redirectTo={`${typeof window !== 'undefined' ? window.location.origin : 'http://localhost:3000'}/auth/callback?redirectedFrom=${redirectedFrom}`}
           />
+          )}
         </motion.div>
 
         {/* Footer Links */}
@@ -147,5 +155,20 @@ export default function SignIn() {
         </motion.div>
       </motion.div>
     </div>
+  )
+}
+
+export default function SignIn() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 via-primary-50 to-orange-50 flex items-center justify-center px-4 py-12">
+        <div className="w-full max-w-md text-center">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600 mx-auto"></div>
+          <p className="mt-4 text-gray-600">Loading...</p>
+        </div>
+      </div>
+    }>
+      <SignInForm />
+    </Suspense>
   )
 }

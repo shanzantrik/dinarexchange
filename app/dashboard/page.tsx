@@ -16,10 +16,37 @@ import {
   Shield
 } from 'lucide-react'
 
+// Define the Order interface
+interface Order {
+  id: string
+  order_number: string
+  user_id: string
+  user_email: string
+  currency_type: string
+  quantity: string
+  unit_price: number
+  total_amount: number
+  status: string
+  customer_info: {
+    fullName: string
+    email: string
+    phone: string
+    mobile: string
+    address: string
+    dateOfBirth: string
+    idType: string
+    idNumber: string
+    comments: string
+  }
+  payment_method: string
+  created_at: string
+  updated_at: string
+}
+
 export default function Dashboard() {
   const { user, signOut, isAdmin } = useAuth()
   const [activeTab, setActiveTab] = useState('overview')
-  const [orders, setOrders] = useState([])
+  const [orders, setOrders] = useState<Order[]>([])
   const [loading, setLoading] = useState(true)
   const [showRatesModal, setShowRatesModal] = useState(false)
   const router = useRouter()
@@ -52,8 +79,13 @@ export default function Dashboard() {
 
   // Calculate dynamic stats
   const totalOrders = orders.length;
-  const totalSpent = orders.reduce((sum, order) => sum + parseFloat(order.total_amount), 0);
-  const activeOrders = orders.filter(order => 
+  const totalSpent = orders.reduce((sum, order) => {
+    const amount = typeof order.total_amount === 'string'
+      ? parseFloat(order.total_amount)
+      : order.total_amount;
+    return sum + (isNaN(amount) ? 0 : amount);
+  }, 0);
+  const activeOrders = orders.filter(order =>
     ['pending', 'processing', 'packaging', 'shipped'].includes(order.status)
   ).length;
   const accountStatus = user?.email_confirmed_at ? 'Verified' : 'Pending';
@@ -322,7 +354,7 @@ export default function Dashboard() {
                     )}
                     {orders.length > 5 && !isAdmin && (
                       <div className="mt-6 text-center">
-                        <button 
+                        <button
                           onClick={() => setActiveTab('orders')}
                           className="text-primary-600 hover:text-primary-700 font-medium"
                         >
@@ -342,21 +374,21 @@ export default function Dashboard() {
                 >
                   <h2 className="text-xl font-semibold text-gray-900 mb-4">Quick Actions</h2>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <button 
+                    <button
                       onClick={() => router.push('/buy-dinar')}
                       className="p-4 border-2 border-dashed border-primary-300 rounded-lg text-primary-600 hover:border-primary-400 hover:bg-primary-50 transition-colors"
                     >
                       <Package className="w-8 h-8 mx-auto mb-2" />
                       <p className="font-medium">Place New Order</p>
                     </button>
-                    <button 
+                    <button
                       onClick={() => setShowRatesModal(true)}
                       className="p-4 border-2 border-dashed border-orange-300 rounded-lg text-orange-600 hover:border-orange-400 hover:bg-orange-50 transition-colors"
                     >
                       <CreditCard className="w-8 h-8 mx-auto mb-2" />
                       <p className="font-medium">View Rates</p>
                     </button>
-                    <button 
+                    <button
                       onClick={() => router.push('/contact')}
                       className="p-4 border-2 border-dashed border-gray-300 rounded-lg text-gray-600 hover:border-gray-400 hover:bg-gray-50 transition-colors"
                     >
@@ -460,7 +492,7 @@ export default function Dashboard() {
                       )}
                     </div>
                   </div>
-                  
+
                   <div className="border-t border-gray-200 pt-4">
                     <h4 className="font-medium text-gray-900 mb-3">Account Information</h4>
                     <div className="space-y-3 text-sm">
@@ -505,7 +537,7 @@ export default function Dashboard() {
                           </div>
                         </div>
                       </button>
-                      
+
                       <button
                         onClick={() => {
                           if (confirm('Are you sure you want to delete your account? This action cannot be undone.')) {

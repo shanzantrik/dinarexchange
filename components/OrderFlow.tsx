@@ -162,8 +162,10 @@ export default function OrderFlow({ selectedOption, totalAmount, onComplete }: O
         comments: formData.comments
       };
 
-      // Generate unique order number
-      const orderNumber = `ORD-${Date.now()}-${Math.random().toString(36).substr(2, 9).toUpperCase()}`;
+      // Generate unique order number with timestamp and random string
+      const timestamp = Date.now();
+      const randomString = Math.random().toString(36).substr(2, 9).toUpperCase();
+      const orderNumber = `ORD-${timestamp}-${randomString}`;
       console.log('Generated order number:', orderNumber);
 
       // Create order in database
@@ -185,6 +187,9 @@ export default function OrderFlow({ selectedOption, totalAmount, onComplete }: O
       console.log('Order API response:', result);
 
       if (!response.ok) {
+        if (response.status === 409) {
+          throw new Error('This order has already been submitted. Please check your email for confirmation.');
+        }
         throw new Error(result.error || 'Failed to create order');
       }
 
@@ -878,9 +883,14 @@ export default function OrderFlow({ selectedOption, totalAmount, onComplete }: O
 
                 <button
                   onClick={handleSubmitOrder}
-                  className="w-full bg-orange-500 text-white font-bold py-4 px-6 rounded-lg hover:bg-orange-600 transition-colors duration-200"
+                  disabled={isSubmitting}
+                  className={`w-full font-bold py-4 px-6 rounded-lg transition-colors duration-200 ${
+                    isSubmitting
+                      ? 'bg-gray-400 cursor-not-allowed'
+                      : 'bg-orange-500 hover:bg-orange-600 text-white'
+                  }`}
                 >
-                  Submit Order
+                  {isSubmitting ? 'Submitting Order...' : 'Submit Order'}
                 </button>
               </div>
             </motion.div>

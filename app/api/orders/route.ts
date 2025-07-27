@@ -20,8 +20,30 @@ export async function POST(request: NextRequest) {
       orderNumber 
     } = body;
 
+    // Check if order with this order number already exists
+    const { data: existingOrder, error: checkError } = await supabase
+      .from('orders')
+      .select('id')
+      .eq('order_number', orderNumber)
+      .single();
+
+    if (existingOrder) {
+      console.log('Duplicate order detected:', orderNumber);
+      return NextResponse.json({ 
+        error: 'Order already exists with this order number',
+        order: existingOrder 
+      }, { status: 409 });
+    }
+
     // Determine currency type based on selected option
     const currencyType = selectedOption.description.includes('Iraqi') ? 'IQD' : 'ZIM';
+    
+    console.log('Creating new order:', {
+      orderNumber,
+      currencyType,
+      userEmail: user.email,
+      totalAmount
+    });
     
     // Create order in database
     const { data: order, error } = await supabase

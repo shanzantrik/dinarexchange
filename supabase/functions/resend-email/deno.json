@@ -1,5 +1,9 @@
 {
   "imports": {
-    "resend": "npm:resend@^2.0.0"
+    "resend": "npm:resend@2.0.0"
+  },
+  "compilerOptions": {
+    "allowJs": true,
+    "lib": ["deno.window", "dom"]
   }
-} 
+}

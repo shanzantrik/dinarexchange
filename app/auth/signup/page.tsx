@@ -9,20 +9,26 @@ import { motion } from 'framer-motion'
 import Link from 'next/link'
 
 export default function SignUp() {
-  const [supabase] = useState(() => createClient())
+  const [supabase, setSupabase] = useState<any>(null)
   const router = useRouter()
 
   useEffect(() => {
+    setSupabase(createClient())
+  }, [])
+
+  useEffect(() => {
+    if (!supabase) return;
+    
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange((event, session) => {
+    } = supabase.auth.onAuthStateChange((event: string, session: any) => {
       if (event === 'SIGNED_IN' && session) {
         router.push('/dashboard')
       }
     })
 
     return () => subscription.unsubscribe()
-  }, [supabase.auth, router])
+  }, [supabase, router])
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-primary-50 to-orange-50 flex items-center justify-center px-4 py-12">
@@ -59,8 +65,9 @@ export default function SignUp() {
           transition={{ delay: 0.4 }}
           className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100"
         >
-          <Auth
-            supabaseClient={supabase}
+          {supabase && (
+            <Auth
+              supabaseClient={supabase}
             view="sign_up"
             appearance={{
               theme: ThemeSupa,
@@ -117,6 +124,7 @@ export default function SignUp() {
             providers={['google']}
             redirectTo={`${typeof window !== 'undefined' ? window.location.origin : 'http://localhost:3000'}/auth/callback`}
           />
+          )}
         </motion.div>
 
         {/* Footer Links */}
