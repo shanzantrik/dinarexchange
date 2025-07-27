@@ -233,13 +233,22 @@ export default function Dashboard() {
                 ))}
 
                 {isAdmin && (
-                  <a
-                    href="/admin/orders"
-                    className="w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-left transition-colors text-orange-600 hover:bg-orange-50"
-                  >
-                    <Package className="w-5 h-5" />
-                    <span className="font-medium">Manage Orders</span>
-                  </a>
+                  <>
+                    <a
+                      href="/admin/orders"
+                      className="w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-left transition-colors text-orange-600 hover:bg-orange-50"
+                    >
+                      <Package className="w-5 h-5" />
+                      <span className="font-medium">Manage Orders</span>
+                    </a>
+                    <a
+                      href="/admin/users"
+                      className="w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-left transition-colors text-purple-600 hover:bg-purple-50"
+                    >
+                      <Shield className="w-5 h-5" />
+                      <span className="font-medium">Manage Users</span>
+                    </a>
+                  </>
                 )}
               </nav>
 
