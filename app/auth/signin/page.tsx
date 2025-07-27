@@ -33,6 +33,14 @@ function SignInForm() {
     return () => subscription.unsubscribe()
   }, [supabase?.auth, router, redirectedFrom])
 
+  // Debug: Log the redirect URL
+  const redirectUrl = `${getAuthRedirectUrl()}?redirectedFrom=${redirectedFrom}`
+  console.log('🔍 Debug - Redirect URL:', redirectUrl)
+  console.log('🔍 Debug - Site URL:', getAuthRedirectUrl().replace('/auth/callback', ''))
+  console.log('🔍 Debug - NODE_ENV:', process.env.NODE_ENV)
+  console.log('🔍 Debug - NEXT_PUBLIC_SITE_URL:', process.env.NEXT_PUBLIC_SITE_URL)
+  console.log('🔍 Debug - VERCEL_URL:', process.env.VERCEL_URL)
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-primary-50 to-orange-50 flex items-center justify-center px-4 py-12">
       <motion.div
@@ -124,7 +132,7 @@ function SignInForm() {
               },
             }}
             providers={['google']}
-            redirectTo={`${getAuthRedirectUrl()}?redirectedFrom=${redirectedFrom}`}
+            redirectTo={redirectUrl}
           />
           )}
         </motion.div>
