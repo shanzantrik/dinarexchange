@@ -30,7 +30,7 @@ function SignInForm() {
     })
 
     return () => subscription.unsubscribe()
-  }, [supabase, router, redirectedFrom])
+  }, [supabase?.auth, router, redirectedFrom])
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-primary-50 to-orange-50 flex items-center justify-center px-4 py-12">
