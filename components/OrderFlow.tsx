@@ -112,10 +112,13 @@ export default function OrderFlow({ selectedOption, totalAmount, onComplete }: O
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmitOrder = async () => {
+    // Prevent duplicate submissions immediately
     if (isSubmitting) {
-      return; // Prevent duplicate submissions
+      console.log('Order submission already in progress, ignoring duplicate click');
+      return;
     }
 
+    // Validate required fields
     if (!formData.agreeToTerms) {
       showModal(
         'Terms Agreement Required',
@@ -134,7 +137,9 @@ export default function OrderFlow({ selectedOption, totalAmount, onComplete }: O
       return;
     }
 
+    // Set submitting state immediately to prevent any further clicks
     setIsSubmitting(true);
+    console.log('Order submission started, isSubmitting set to true');
 
     try {
       // Show loading modal
@@ -157,6 +162,10 @@ export default function OrderFlow({ selectedOption, totalAmount, onComplete }: O
         comments: formData.comments
       };
 
+      // Generate unique order number
+      const orderNumber = `ORD-${Date.now()}-${Math.random().toString(36).substr(2, 9).toUpperCase()}`;
+      console.log('Generated order number:', orderNumber);
+
       // Create order in database
       const response = await fetch('/api/orders', {
         method: 'POST',
@@ -168,11 +177,12 @@ export default function OrderFlow({ selectedOption, totalAmount, onComplete }: O
           totalAmount,
           customerInfo,
           paymentMethod: formData.paymentMethod,
-          orderNumber: `ORD-${Date.now()}-${Math.random().toString(36).substr(2, 9).toUpperCase()}`
+          orderNumber: orderNumber
         }),
       });
 
       const result = await response.json();
+      console.log('Order API response:', result);
 
       if (!response.ok) {
         throw new Error(result.error || 'Failed to create order');
@@ -211,6 +221,8 @@ export default function OrderFlow({ selectedOption, totalAmount, onComplete }: O
         'error'
       );
     } finally {
+      // Always reset the submitting state
+      console.log('Order submission completed, resetting isSubmitting to false');
       setIsSubmitting(false);
     }
   };
